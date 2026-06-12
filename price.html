@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прайс-лист | Rado max trade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fdfbfb;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-hover: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #f472b6;
+            --accent-glow: rgba(244, 114, 182, 0.3);
+            --border-radius: 20px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .bg-animated {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out alternate;
+        }
+
+        .shape-1 { width: 400px; height: 400px; background: rgba(251, 194, 235, 0.5); top: -5%; left: -10%; }
+        .shape-2 { width: 500px; height: 500px; background: rgba(166, 193, 238, 0.4); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 20s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 40px) scale(1.05); }
+        }
+
+        /* Top bar */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(253, 251, 251, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.8);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 9px 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .back-btn:hover {
+            background: #fdf2f8;
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.15);
+        }
+
+        .back-btn svg {
+            width: 16px; height: 16px;
+            flex-shrink: 0;
+        }
+
+        .top-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #334155;
+            flex: 1;
+        }
+
+        .top-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Search */
+        .search-wrap {
+            padding: 16px 20px 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px 18px 12px 44px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .search-input::placeholder { color: var(--text-secondary); }
+
+        .search-input:focus {
+            background: white;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.12);
+        }
+
+        .search-wrap-inner {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        /* Table container */
+        .table-wrap {
+            padding: 0 12px 40px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .table-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: rgba(244, 114, 182, 0.08);
+        }
+
+        thead th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            white-space: nowrap;
+        }
+
+        thead th:last-child {
+            text-align: right;
+        }
+
+        thead th:nth-child(3) {
+            text-align: center;
+        }
+
+        /* Category rows */
+        tr.cat-main td {
+            padding: 14px 16px 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            background: rgba(244, 114, 182, 0.05);
+            border-top: 1px solid rgba(244, 114, 182, 0.12);
+        }
+
+        tr.cat-sub td {
+            padding: 10px 16px 5px 28px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+
+        /* Product rows */
+        tr.product-row td {
+            padding: 11px 16px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            vertical-align: middle;
+            color: var(--text-primary);
+        }
+
+        tr.product-row:last-child td {
+            border-bottom: none;
+        }
+
+        tr.product-row:hover td {
+            background: rgba(244, 114, 182, 0.04);
+        }
+
+        td.col-name {
+            line-height: 1.4;
+        }
+
+        td.col-barcode {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        td.col-qty {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        td.col-price {
+            text-align: right;
+            font-weight: 700;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .price-val {
+            background: rgba(244, 114, 182, 0.08);
+            color: #db2777;
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Empty state */
+        .no-results {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .no-results span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        /* Stats badge */
+        .stats {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 0 20px 10px;
+            max-width: 900px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            td.col-barcode { display: none; }
+            thead th:nth-child(2) { display: none; }
+
+            tr.product-row td { padding: 10px 12px; }
+            thead th { padding: 12px; }
+
+            .top-title { font-size: 0.9rem; }
+            .back-btn { padding: 8px 12px; }
+
+            td.col-name { font-size: 0.78rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animated">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+    </div>
+
+    <div class="top-bar">
+        <a href="index.html" class="back-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            На главную
+        </a>
+        <div>
+            <div class="top-title">Прайс-лист</div>
+            <div class="top-subtitle">Rado max trade &amp; Merak trade</div>
+        </div>
+    </div>
+
+    <div class="search-wrap">
+        <div class="search-wrap-inner">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Поиск по названию или штрихкоду..." oninput="filterTable()">
+        </div>
+    </div>
+
+    <div class="stats" id="statsBar"></div>
+
+    <div class="table-wrap">
+        <div class="table-card">
+            <table id="priceTable">
+                <thead>
+                    <tr>
+                        <th>Номенклатура</th>
+                        <th>Штрихкод</th>
+                        <th>Шт. в кор.</th>
+                        <th>Цена (сум)</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+            <div class="no-results" id="noResults">
+                <span>🔍</span>
+                Ничего не найдено
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const DATA = [{"name": "ПРОДУКЦИЯ \"МИСТРАЛЬ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "КРУПЫ \"МИСТРАЛЬ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Крупа \"МИСТРАЛЬ\" Пшеничная Булгур 450 гр.", "barcode": "4601916014103", "qty": "12", "price": "16 800", "type": "product"}, {"name": "Крупа \"МИСТРАЛЬ\" Манная 800 гр.", "barcode": "4601916005064", "qty": "12", "price": "20 496", "type": "product"}, {"name": "ХЛОПЬЯ \"МИСТРАЛЬ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Хлопья \"МИСТРАЛЬ\" Овсяные 350 гр.", "barcode": "4601916014660", "qty": "12", "price": "12 880", "type": "product"}, {"name": "САХАР \"МИСТРАЛЬ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Сахар \"МИСТРАЛЬ\" Тростниковый нерафинированный Демерара 900 гр.", "barcode": "4601916006238", "qty": "12", "price": "73 360", "type": "product"}, {"name": "Сахар \"МИСТРАЛЬ\" Тростниковый нерафинированный Демерара кусковой 500 гр.", "barcode": "4601916002308", "qty": "12", "price": "71 960", "type": "product"}, {"name": "Сахар \"МИСТРАЛЬ\" Тростниковый нерафинированный Демерара в кубиках 500 гр.", "barcode": "4601916004241", "qty": "16", "price": "47 516", "type": "product"}, {"name": "Сахар \"МИСТРАЛЬ\" Тростниковый нерафинированный Демерара 500 гр.", "barcode": "", "qty": "12", "price": "45 248", "type": "product"}, {"name": "САХАР ЗОЛОТОЙ ТРОСТНИК \"МИСТРАЛЬ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Сахар \"ЗОЛОТОЙ ТРОСТНИК\" Тростниковый нерафинированный 900 гр.", "barcode": "4601916004432", "qty": "10", "price": "66 920", "type": "product"}, {"name": "Сахар \"ЗОЛОТОЙ ТРОСТНИК\" Тростниковый нерафинированный кусковой 450 гр.", "barcode": "4601916006054", "qty": "12", "price": "50 960", "type": "product"}, {"name": "Сахар \"ЗОЛОТОЙ ТРОСТНИК\" Тростниковый нерафинированный в кубиках 400 гр.", "barcode": "4601916006061", "qty": "16", "price": "34 048", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ФИТСТАРТ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ХЛЕБЦЫ \"ФИТСТАРТ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Хлебцы рисовые \"FITSTART\" Прованские травы 90 гр.", "barcode": "4601916007693", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисовые \"FITSTART\" Пряная вишня 100 гр.", "barcode": "4601916013144", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисово-кукурузные \"FITSTART\" Соленая карамель 100 гр.", "barcode": "4601916012826", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы гречневые \"FITSTART\" Гречневый микс 90 гр.", "barcode": "4601916007556", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы мультизлаковые \"FITSTART\" Брусника, Имбирь и Мед 100 гр.", "barcode": "4601916007020", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы мультизлаковые \"FITSTART\" Лесные ягоды 100 гр.", "barcode": "4601916007037", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы мультизлаковые \"FITSTART\" Апельсин 100 гр.", "barcode": "4601916007044", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисовые \"FITSTART\" Кокос 100 гр.", "barcode": "4601916008294", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисовые \"FITSTART\" Карамель 100 гр.", "barcode": "4601916007549", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисовые \"FITSTART\" Кленовый сироп 100 гр.", "barcode": "4601916010082", "qty": "12", "price": "15 008", "type": "product"}, {"name": "Хлебцы рисовые \"FITSTART\" Манго, Маракуйя 100 гр.", "barcode": "4601916010099", "qty": "12", "price": "15 008", "type": "product"}, {"name": "ПРОДУКЦИЯ \"БИГ ЛАНЧ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "СТАКАН \"БИГ ЛАНЧ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Лапша \"БИГ ЛАНЧ\" паприкаш с курицей и острым перцем, стакан 90 гр.", "barcode": "4630024630868", "qty": "24", "price": "10 304", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" соте с курицей и пряными травами, стакан 90 гр.", "barcode": "4630024630820", "qty": "24", "price": "10 304", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" рагу с говядиной и чили перцем, стакан 90 гр.", "barcode": "4630024630882", "qty": "24", "price": "10 304", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" фрикасе с цыпленком и черным трюфелем, стакан 90 гр.", "barcode": "", "qty": "24", "price": "10 304", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" с ароматной говядиной, грибами и зеленью, стакан 90 гр.", "barcode": "4607160450025", "qty": "24", "price": "10 304", "type": "product"}, {"name": "БРИКЕТ \"БИГ ЛАНЧ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Лапша \"БИГ ЛАНЧ - КБГ\" паприкаш с курицей и острым перцем, брикет 75 гр.", "barcode": "4630024630851", "qty": "60", "price": "4 872", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" соте с курицей и пряными травами, брикет 100 гр.", "barcode": "4630024630912", "qty": "48", "price": "5 712", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ - КБГ\" соте с курицей и пряными травами, брикет 75 гр.", "barcode": "", "qty": "60", "price": "4 872", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ - КБГ\" рагу с говядиной и чили перцем, брикет 75 гр.", "barcode": "", "qty": "60", "price": "4 872", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ - КБГ\" фрикасе с цыпленком и черным трюфелем, брикет 75 гр.", "barcode": "", "qty": "60", "price": "4 872", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ\" с ароматной говядиной, грибами и зеленью, брикет 100 гр.", "barcode": "4607160451886", "qty": "48", "price": "5 712", "type": "product"}, {"name": "Лапша \"БИГ ЛАНЧ - КБГ\" с ароматной говядиной, грибами и зеленью, брикет 75 гр.", "barcode": "4607160450896", "qty": "60", "price": "4 872", "type": "product"}, {"name": "ЛОТОК \"БИГ ЛАНЧ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Изделия макаронные \"БИЗНЕС МЕНЮ\" Удон Якитори с цельными кусочками курицы, лоток 110 гр.", "barcode": "", "qty": "18", "price": "24 724", "type": "product"}, {"name": "Изделия макаронные \"БИЗНЕС МЕНЮ\" Удон Терияки с цельными кусочками говядины, лоток 110 гр.", "barcode": "", "qty": "18", "price": "24 724", "type": "product"}, {"name": "Лапша Яичная \"БИЗНЕС ЛАНЧ \" с куриным бульоном, лоток 90 гр.", "barcode": "4630024630684", "qty": "24", "price": "9 856", "type": "product"}, {"name": "Лапша Яичная \"БИЗНЕС ЛАНЧ \" с говяжьим бульоном, лоток 90 гр.", "barcode": "4630024630691", "qty": "24", "price": "9 856", "type": "product"}, {"name": "Изделия макаронные \"БИЗНЕС МЕНЮ\" с куриным филе с приправами и овощами, лоток 110 гр.", "barcode": "4630024630707", "qty": "18", "price": "17 668", "type": "product"}, {"name": "Изделия макаронные \"БИЗНЕС МЕНЮ\" с тушеной говодяной в пряном соусе и овощами, лоток 110 гр.", "barcode": "4630024630714", "qty": "18", "price": "17 668", "type": "product"}, {"name": "СОУСЫ \"MIVIMEX\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Соус овощной \"MIVIMEX\" жгучий кавказский 200 гр. NEW", "barcode": "", "qty": "15", "price": "10 024", "type": "product"}, {"name": "Соус овощной \"MIVIMEX\" микс перцев 200 гр. NEW", "barcode": "", "qty": "15", "price": "10 024", "type": "product"}, {"name": "Соус овощной \"MIVIMEX\" соевый микс чили и чеснок 200 гр. NEW", "barcode": "", "qty": "15", "price": "10 024", "type": "product"}, {"name": "ПЮРЕ \"БИГ ЛАНЧ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Картофельное пюре \"БИГ ЛАНЧ\" с соусом, с говядиной, стакан 50 гр.", "barcode": "4607160451008", "qty": "24", "price": "10 920", "type": "product"}, {"name": "Картофельное пюре \"БИГ ЛАНЧ\" с соусом, с курицей, стакан 50 гр.", "barcode": "4607160450995", "qty": "24", "price": "10 920", "type": "product"}, {"name": "Картофельное пюре \"БИЗНЕС ЛАНЧ\" с говядиной, стакан 40 гр.", "barcode": "4630024630639", "qty": "24", "price": "7 504", "type": "product"}, {"name": "Картофельное пюре \"БИЗНЕС ЛАНЧ\" с курицей, стакан 40 гр.", "barcode": "4630024630622", "qty": "24", "price": "7 504", "type": "product"}, {"name": "Картофельное пюре \"БИЗНЕС МЕНЮ\" с куриным филе, приправами и овощами, стакан 110 гр.", "barcode": "4630024630721", "qty": "18", "price": "22 288", "type": "product"}, {"name": "Картофельное пюре \"БИЗНЕС МЕНЮ\" с тушеной говядиной, с пряном соусе и овощами, стакан 110 гр.", "barcode": "4630024630738", "qty": "18", "price": "22 288", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ЗА РОДИНУ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "БАЛТИЙСКАЯ КИЛЬКА", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Килька черноморская \"ЗА РОДИНУ\" неразделанная обжаренная в т/c 240 гр.", "barcode": "", "qty": "18", "price": "13 524", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" в томатном соусе 240 гр.", "barcode": "4605463002903", "qty": "18", "price": "14 560", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" обжаренная в томатном соусе 240 гр.", "barcode": "4605463000015", "qty": "18", "price": "15 792", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" с овощами по венгерски 240 гр.", "barcode": "4605463000039", "qty": "18", "price": "17 948", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" с овощами по гавайски 240 гр.", "barcode": "4605463006550", "qty": "18", "price": "17 948", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" с овощами по мексикански 240 гр.", "barcode": "4605463006536", "qty": "18", "price": "17 948", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" обжаренная в томатном соусе 175 гр.", "barcode": "4605463005454", "qty": "24", "price": "18 760", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" обжаренная в томатном соусе 270 гр.", "barcode": "4605463006888", "qty": "12", "price": "26 432", "type": "product"}, {"name": "Килька балтийская \"ЗА РОДИНУ\" обжаренная в томатном соусе ЧИЛИ 240 гр.", "barcode": "4605463008981", "qty": "18", "price": "17 948", "type": "product"}, {"name": "КОНСЕРВЫ ИЗ ОКЕАНИЧЕСКОЙ РЫБЫ", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Сельдь атлантическая \"ЗА РОДИНУ\" натуральная в масле 185 гр.", "barcode": "4605463003146", "qty": "32", "price": "21 420", "type": "product"}, {"name": "Скумбрия атлантическая \"ЗА РОДИНУ\" натуральная в масле 185 гр.", "barcode": "4605463003153", "qty": "32", "price": "25 004", "type": "product"}, {"name": "Сайра тихоокеанская \"ЗА РОДИНУ\" натуральная в масле 185 гр.", "barcode": "4605463003177", "qty": "24", "price": "36 316", "type": "product"}, {"name": "ШПРОТЫ И ПАШТЕТЫ", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Шпроты \"ЗА РОДИНУ\" в масле из каспийской кильки Laatsa 160 гр.", "barcode": "", "qty": "24", "price": "20 776", "type": "product"}, {"name": "Паштет \"ЗА РОДИНУ\" шпротный из кильки и салаки, ключ 170 гр.", "barcode": "4605463002033", "qty": "24", "price": "12 488", "type": "product"}, {"name": "Шпроты \"ЗА РОДИНУ\" в масле из балтийской кильки, ключ 160 гр.", "barcode": "4605463002453", "qty": "24", "price": "21 840", "type": "product"}, {"name": "Шпроты \"ЗА РОДИНУ\" в масле из балтийской кильки, стекло 270 гр.", "barcode": "4605463006710", "qty": "12", "price": "39 732", "type": "product"}, {"name": "Шпроты \"ЗА РОДИНУ\" в масле из балтийской кильки HANSA 175 гр.", "barcode": "4605463003733", "qty": "24", "price": "25 900", "type": "product"}, {"name": "ПАШТЕТЫ FISHPOINT", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Паштет \"ЗА РОДИНУ\" из филе скумбрии 80 гр.", "barcode": "4605463008929", "qty": "12", "price": "18 956", "type": "product"}, {"name": "Паштет \"ЗА РОДИНУ\" из филе тунца классический 80 гр.", "barcode": "4605463008813", "qty": "12", "price": "18 956", "type": "product"}, {"name": "КОНСЕРВЫ РЫБНАЯ ДЕРЕВНЯ", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Килька \"РЫБНАЯ ДЕРЕВНЯ\" балт.неразделенная в т/с, ключ 230 гр.", "barcode": "4605463002736", "qty": "48", "price": "12 908", "type": "product"}, {"name": "Килька черноморская \"РЫБНАЯ ДЕРЕВНЯ\" неразделанная обжаренная в томатном соусе, ключ 240 гр.", "barcode": "4605463009865", "qty": "24", "price": "12 852", "type": "product"}, {"name": "КОНСЕРВЫ БАЛТИК ГОЛД", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Килька балтийская \"БАЛТИК ГОЛД\" обжаренная в томатном соусе, ключ 240 гр.", "barcode": "4605463009926", "qty": "18", "price": "17 192", "type": "product"}, {"name": "Килька балтийская \"БАЛТИК ГОЛД\" необжаренная в томатном соусе 240 гр.", "barcode": "4605463009919", "qty": "18", "price": "16 100", "type": "product"}, {"name": "Сельдь атлантическая \"БАЛТИК ГОЛД\" натуральная в масле 185 гр.", "barcode": "4605463010052", "qty": "32", "price": "21 812", "type": "product"}, {"name": "Скумбрия атлантическая \"БАЛТИК ГОЛД\" натуральная в масле 185 гр.", "barcode": "4605463009933", "qty": "32", "price": "26 236", "type": "product"}, {"name": "Шпроты \"БАЛТИК ГОЛД\" в масле из балтийской кильки, ключ 160 гр.", "barcode": "4605463009889", "qty": "24", "price": "22 288", "type": "product"}, {"name": "Шпроты \"БАЛТИК ГОЛД\" в масле из балтийской кильки, стекло 270 гр.", "barcode": "4605463009902", "qty": "12", "price": "40 488", "type": "product"}, {"name": "ПРОДУКЦИЯ \"КСГ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "КСГ Горох \"МИСТРАЛЬ\" Желтый колотый 900 гр.", "barcode": "4601916005927", "qty": "12", "price": "9 156", "type": "product"}, {"name": "КСГ Детская смесь \"NUTRISH\" 2, от 6 до 12 месяцев 400 гр.", "barcode": "", "qty": "24", "price": "53 746", "type": "product"}, {"name": "КСГ Детская смесь \"NUTRISH\" 1, от 0 до 6 месяцев 400 гр.", "barcode": "", "qty": "24", "price": "53 746", "type": "product"}, {"name": "КСГ Мармелад жевательный \"дЖу-дЖу-дЖув\" сафари 70 гр.", "barcode": "", "qty": "60", "price": "2 702", "type": "product"}, {"name": "КСГ Лапша \"БИГ ЛАНЧ - КБГ\" паприкаш с курицей и острым перцем, брикет 75 гр.", "barcode": "4630024630851", "qty": "60", "price": "3 410", "type": "product"}, {"name": "КСГ Конфеты жевательные \"Фруззи Дуо\" с начинкой 180 гр.", "barcode": "", "qty": "22", "price": "6 552", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ЩЕДРЫЕ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ХЛЕБЦЫ \"ЩЕДРЫЕ\" 100 ГР.", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Хлебцы \"Щедрые\" бородинские 100 гр.", "barcode": "4607096571603", "qty": "24", "price": "10 584", "type": "product"}, {"name": "Хлебцы \"Щедрые\" гречневые 100 гр.", "barcode": "4607096571429", "qty": "24", "price": "10 584", "type": "product"}, {"name": "ХЛЕБЦЫ \"ЩЕДРЫЕ\" 170 ГР.", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Хлебцы тонкие \"Щедрые\" ржаные 170 гр.", "barcode": "4607096572396", "qty": "20", "price": "22 736", "type": "product"}, {"name": "ХЛЕБЦЫ \"КРУАЗЕТТ\" 150 ГР.", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Хлебцы \"Круазетт\" обогащенные белком с семенами льна 150 гр.", "barcode": "", "qty": "8", "price": "24 640", "type": "product"}, {"name": "Хлебцы \"Круазетт\" пшеничные 150 гр.", "barcode": "", "qty": "8", "price": "24 640", "type": "product"}, {"name": "ПРОДУКЦИЯ \"МАСТЕР КАН\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ПАКЕТ \"МАСТЕР КАН\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ЛБП \"Мастер Кан\" класссический, пакет 100 гр.", "barcode": "4870244250617", "qty": "30", "price": "11 004", "type": "product"}, {"name": "ЛБП \"Мастер Кан\" с омлетом, пакет 110 гр.", "barcode": "4870244250655", "qty": "24", "price": "11 004", "type": "product"}, {"name": "ЛБП \"Мастер Кан\" дапанджи, пакет 97 гр.", "barcode": "4870244250686", "qty": "20", "price": "12 600", "type": "product"}, {"name": "ЛБП \"Мастер Кан\" кимчи чили, пакет 95 гр.", "barcode": "4870244250648", "qty": "30", "price": "11 004", "type": "product"}, {"name": "СОУСЫ \"МАСТЕР КАН\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Соевый Соус \"Мастер Кан\" пластик 500 мл.", "barcode": "4870244250280", "qty": "24", "price": "17 724", "type": "product"}, {"name": "Аджика острая \"Мастер Кан\" 250 гр.", "barcode": "4870244251058", "qty": "12", "price": "16 912", "type": "product"}, {"name": "Лазджан острый соус \"Мастер Кан\" 250 гр.", "barcode": "4700004710450", "qty": "12", "price": "16 912", "type": "product"}, {"name": "ЛБП \"РАМЕН\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ЛБП \"DO Ramen\" сырный со вкусом курицы 106 гр.", "barcode": "4870244250969", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"DO Ramen\" со вкусом курицы 103 гр.", "barcode": "4870244250990", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"DO Ramen\" кимчи, со вкусом говядины 109 гр.", "barcode": "4870244250983", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"DO Ramen\" кимчи и сыр, со вкусом говядины 109 гр.", "barcode": "4870244250976", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"FRY Ramen\" сыр, со вкусом говядины 112 гр.", "barcode": "4870244250945", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"FRY Ramen\" сыр карбонара, со вкусом курицы 111 гр.", "barcode": "4870244250921", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"FRY Ramen\" двойной сыр, со вкусом курицы 113 гр.", "barcode": "4870244250938", "qty": "30", "price": "12 600", "type": "product"}, {"name": "ЛБП \"DO Ramen\" с кокос.молоком и со вкусом Том Яма и креветок 126 гр.", "barcode": "4870244251386", "qty": "30", "price": "18 508", "type": "product"}, {"name": "ЛБП \"DO Ramen\" сырный со вкусом курицы, чашка 104 гр.", "barcode": "", "qty": "12", "price": "20 692", "type": "product"}, {"name": "ЛБП \"DO Ramen\" со вкусом курицы, чашка 98 гр.", "barcode": "", "qty": "12", "price": "20 692", "type": "product"}, {"name": "ЛБП \"FRY Ramen\" сыр карбонара, со вкусом курицы, чашка 105 гр.", "barcode": "", "qty": "12", "price": "20 692", "type": "product"}, {"name": "ЛБП \"FRY Ramen\" двойной сыр, со вкусом курицы, чашка 108 гр.", "barcode": "", "qty": "12", "price": "20 692", "type": "product"}, {"name": "ПЕРЧИКИ \"МАСТЕР КАН\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Маринованные перчики \"Мастер Кан\" Пири Пири 350 гр.", "barcode": "4870220620380", "qty": "24", "price": "27 636", "type": "product"}, {"name": "Маринованные перчики \"Мастер Кан\" Халапенью 350 гр.", "barcode": "4870220620397", "qty": "24", "price": "27 636", "type": "product"}, {"name": "Маринованные перчики \"Мастер Кан\" Чили 350 гр.", "barcode": "4870220620403", "qty": "24", "price": "27 636", "type": "product"}, {"name": "ПРОДУКЦИЯ \"НУТРИШ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ДЕТСКАЯ СМЕСЬ \"НУТРИШ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Детская смесь \"NUTRISH\" 3, от 1 до 3 лет 800 гр.", "barcode": "", "qty": "12", "price": "214 984", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ФОРТУНА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Тунец \"ФОРТУНА\" желтоперый в собственном соку 150 гр.", "barcode": "4601916014066", "qty": "24", "price": "26 992", "type": "product"}, {"name": "Тунец \"ФОРТУНА\" полосатый в собственном соку 150 гр.", "barcode": "4601916014042", "qty": "24", "price": "26 992", "type": "product"}, {"name": "Тунец \"ФОРТУНА\" с добавлением масла 150 гр.", "barcode": "4601916014059", "qty": "24", "price": "26 992", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ПРОЛИВ\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "КОНСЕРВЫ ПРОЛИВ", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Килька черноморская \"ПРОЛИВ\" неразделанная обжаренная 240 гр.", "barcode": "", "qty": "24", "price": "9 500", "type": "product"}, {"name": "ПРОДУКЦИЯ \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "ВАРЕНЬЕ \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Варенье \"Вкус Солнца\" Малина 350 мл.", "barcode": "", "qty": "12", "price": "37 996", "type": "product"}, {"name": "Варенье \"Вкус Солнца\" Клубника 350 мл.", "barcode": "", "qty": "12", "price": "40 012", "type": "product"}, {"name": "Варенье \"Вкус Солнца\" Вишня 350 мл.", "barcode": "", "qty": "12", "price": "29 988", "type": "product"}, {"name": "Варенье \"Вкус Солнца\" Лимонно - Имбирное 350 мл.", "barcode": "", "qty": "12", "price": "26 012", "type": "product"}, {"name": "АДЖИКА \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Аджика \"Вкус Солнца\" 350 мл.", "barcode": "", "qty": "20", "price": "18 704", "type": "product"}, {"name": "Аджика \"Вкус Солнца\" по уйгурски 350 мл.", "barcode": "", "qty": "20", "price": "18 704", "type": "product"}, {"name": "ПЕРЧИКИ \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Перчики \"Вкус Солнца\" Пири Пири 350 мл.", "barcode": "", "qty": "20", "price": "21 000", "type": "product"}, {"name": "Перчики \"Вкус Солнца\" Халапенью 350 мл.", "barcode": "", "qty": "20", "price": "21 000", "type": "product"}, {"name": "Перчики \"Вкус Солнца\" Бэйби 350 мл.", "barcode": "", "qty": "20", "price": "21 000", "type": "product"}, {"name": "Перчики \"Вкус Солнца\" Халапенью Пикардо 350 мл.", "barcode": "", "qty": "20", "price": "21 000", "type": "product"}, {"name": "КОРНИШОНЫ \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Пикули (корнишоны) \"Вкус Солнца\" 350 мл.", "barcode": "", "qty": "20", "price": "21 000", "type": "product"}, {"name": "Патиссоны 2-4 см. \"Вкус Солнца\" 720 мл.", "barcode": "", "qty": "12", "price": "26 488", "type": "product"}, {"name": "Корнишоны 1-4 см. \"Вкус Солнца\" 670 мл.", "barcode": "", "qty": "12", "price": "28 504", "type": "product"}, {"name": "Корнишоны 3-6 см. \"Вкус Солнца\" 720 мл.", "barcode": "", "qty": "12", "price": "26 488", "type": "product"}, {"name": "ГРИБЫ \"ВКУС СОЛНЦА\"", "barcode": "", "qty": "", "price": "", "type": "category"}, {"name": "Грибы \"Вкус Солнца\" Шампиньоны 475 мл.", "barcode": "", "qty": "12", "price": "35 588", "type": "product"}, {"name": "Грибы \"Вкус Солнца\" Шиитаке 475 мл.", "barcode": "", "qty": "12", "price": "47 796", "type": "product"}];
+
+    const totalProducts = DATA.filter(r => r.type === 'product').length;
+
+    function isCategoryMainLevel(name) {
+        return name.startsWith('ПРОДУКЦИЯ') || (!name.includes('"') && name === name.toUpperCase() && name.length > 3);
+    }
+
+    function renderTable(filtered) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        let visibleProducts = 0;
+
+        // When filtering, skip category rows and just show products
+        const isFiltering = document.getElementById('searchInput').value.trim().length > 0;
+
+        if (isFiltering) {
+            filtered.forEach(row => {
+                if (row.type !== 'product') return;
+                visibleProducts++;
+                const tr = document.createElement('tr');
+                tr.className = 'product-row';
+                tr.innerHTML = `
+                    <td class="col-name">${row.name}</td>
+                    <td class="col-barcode">${row.barcode || '—'}</td>
+                    <td class="col-qty">${row.qty || '—'}</td>
+                    <td class="col-price"><span class="price-val">${row.price ? row.price + ' сум' : '—'}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        } else {
+            DATA.forEach(row => {
+                if (row.type === 'category') {
+                    const tr = document.createElement('tr');
+                    const isMain = isCategoryMainLevel(row.name);
+                    tr.className = isMain ? 'cat-main' : 'cat-sub';
+                    tr.innerHTML = `<td colspan="4">${row.name}</td>`;
+                    tbody.appendChild(tr);
+                } else {
+                    visibleProducts++;
+                    const tr = document.createElement('tr');
+                    tr.className = 'product-row';
+                    tr.innerHTML = `
+                        <td class="col-name">${row.name}</td>
+                        <td class="col-barcode">${row.barcode || '—'}</td>
+                        <td class="col-qty">${row.qty || '—'}</td>
+                        <td class="col-price"><span class="price-val">${row.price ? row.price + ' сум' : '—'}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+        }
+
+        document.getElementById('noResults').style.display = visibleProducts === 0 ? 'block' : 'none';
+        document.getElementById('priceTable').style.display = visibleProducts === 0 ? 'none' : '';
+        document.getElementById('statsBar').textContent = isFiltering
+            ? `Найдено: ${visibleProducts} из ${totalProducts} позиций`
+            : `Всего позиций: ${totalProducts}`;
+    }
+
+    function filterTable() {
+        const q = document.getElementById('searchInput').value.trim().toLowerCase();
+        if (!q) { renderTable(DATA); return; }
+        const filtered = DATA.filter(r =>
+            r.type === 'product' &&
+            (r.name.toLowerCase().includes(q) || r.barcode.includes(q))
+        );
+        renderTable(filtered);
+    }
+
+    renderTable(DATA);
+    </script>
+</body>
+</html>
