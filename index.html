@@ -289,6 +289,70 @@
             transform: scale(0.92);
         }
 
+        /* ── Прайс-лист кнопка ── */
+        .price-btn {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius);
+            padding: 18px 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .price-btn:hover {
+            background: var(--glass-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.18);
+            border-color: rgba(244, 114, 182, 0.3);
+        }
+
+        .price-btn:active {
+            transform: scale(0.98);
+        }
+
+        .price-icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .price-btn-text {
+            flex: 1;
+        }
+
+        .price-btn-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .price-btn-sub {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .price-arrow {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
         .color-tg { color: #38bdf8; }
         .color-phone { color: #10b981; }
 
@@ -362,6 +426,26 @@
                 <button class="copy-btn-compact" onclick="copyText('inn-merak', this)" data-i18n="copy">Copy</button>
             </div>
         </div>
+
+        <!-- ── Прайс-лист ── -->
+        <h2 class="section-title" data-i18n="price-section">Прайс-лист</h2>
+
+        <a href="price.html" target="_blank" class="price-btn">
+            <div class="price-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="12" width="4" height="9" rx="1.2" fill="#f472b6" opacity="0.5"/>
+                    <rect x="10" y="7" width="4" height="14" rx="1.2" fill="#f472b6" opacity="0.75"/>
+                    <rect x="17" y="3" width="4" height="18" rx="1.2" fill="#f472b6"/>
+                    <path d="M2 22h20" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="price-btn-text">
+                <div class="price-btn-title" data-i18n="price-title">Открыть прайс</div>
+                <div class="price-btn-sub" data-i18n="price-sub">170 позиций · актуальные цены</div>
+            </div>
+            <span class="price-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </a>
+
     </div>
 
     <div id="toast" class="toast"></div>
@@ -376,6 +460,9 @@
                 'inn-merak-label':'ИНН Merak trade',
                 'copy':           'Copy',
                 'copied':         'ИНН скопирован!',
+                'price-section':  'Прайс-лист',
+                'price-title':    'Открыть прайс',
+                'price-sub':      '170 позиций · актуальные цены',
                 'job-title':      'Торговый представитель<br>Rado max trade &amp; Merak trade',
                 'page-title':     'Холкина Екатерина | Контакты'
             },
@@ -386,6 +473,9 @@
                 'inn-merak-label':'INN Merak trade',
                 'copy':           'Nusxa',
                 'copied':         'INN nusxalandi!',
+                'price-section':  'Narxlar ro\'yxati',
+                'price-title':    'Narxlarni ochish',
+                'price-sub':      '170 ta mahsulot · joriy narxlar',
                 'job-title':      'Savdo vakili<br>Rado max trade &amp; Merak trade',
                 'page-title':     'Xolkina Yekaterina | Kontaktlar'
             }
@@ -395,16 +485,12 @@
 
         function applyLang(lang) {
             const t = i18n[lang];
-            /* Все обычные элементы */
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key] !== undefined) el.textContent = t[key];
             });
-            /* Должность (содержит HTML) */
             document.getElementById('job-title').innerHTML = t['job-title'];
-            /* Заголовок вкладки */
             document.title = t['page-title'];
-            /* Кнопка языка */
             document.getElementById('langBtn').textContent = lang === 'ru' ? 'UZB' : 'RU';
         }
 
