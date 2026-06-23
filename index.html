@@ -22,12 +22,7 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
@@ -36,347 +31,84 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 40px 20px 32px;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        .bg-animated {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        }
+        .bg-animated { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        .bg-shape { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.6; animation: float 15s infinite ease-in-out alternate; }
+        .shape-1 { width: 400px; height: 400px; background: rgba(251, 194, 235, 0.5); top: -5%; left: -10%; }
+        .shape-2 { width: 500px; height: 500px; background: rgba(166, 193, 238, 0.4); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 20s; }
+        @keyframes float { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(40px,40px) scale(1.05); } }
 
-        .bg-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.6;
-            animation: float 15s infinite ease-in-out alternate;
-        }
-
-        .shape-1 {
-            width: 400px;
-            height: 400px;
-            background: rgba(251, 194, 235, 0.5);
-            top: -5%;
-            left: -10%;
-        }
-
-        .shape-2 {
-            width: 500px;
-            height: 500px;
-            background: rgba(166, 193, 238, 0.4);
-            bottom: -10%;
-            right: -10%;
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 40px) scale(1.05); }
-        }
-
-        /* Кнопка переключения языка */
         .lang-toggle {
-            position: fixed;
-            top: 18px;
-            right: 18px;
-            z-index: 999;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 8px 14px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-primary);
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            position: fixed; top: 18px; right: 18px; z-index: 999;
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.9); border-radius: 12px; padding: 8px 14px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+            color: var(--text-primary); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            transition: var(--transition); display: flex; align-items: center; gap: 6px;
         }
+        .lang-toggle:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244,114,182,0.18); border-color: var(--accent-color); color: var(--accent-color); }
+        .lang-toggle:active { transform: scale(0.95); }
 
-        .lang-toggle:hover {
-            background: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(244, 114, 182, 0.18);
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
+        .profile-container { text-align: center; margin-bottom: 32px; z-index: 1; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid #fff; margin-bottom: 16px; object-fit: cover; box-shadow: 0 10px 25px var(--accent-glow); }
+        h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.5px; color: #334155; }
+        p { color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; }
 
-        .lang-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .lang-flag {
-            font-size: 1rem;
-        }
-
-        .profile-container {
-            text-align: center;
-            margin-bottom: 32px;
-            z-index: 1;
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            margin-bottom: 16px;
-            object-fit: cover;
-            box-shadow: 0 10px 25px var(--accent-glow);
-        }
-
-        h1 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-            color: #334155;
-        }
-
-        p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .content-container {
-            width: 100%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-            z-index: 1;
-        }
-
-        .links-group {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+        .content-container { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 32px; z-index: 1; }
+        .links-group { display: flex; flex-direction: column; gap: 14px; }
 
         .btn {
-            text-decoration: none;
-            color: var(--text-primary);
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 16px 22px;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            transition: var(--transition);
+            text-decoration: none; color: var(--text-primary); background: var(--glass-bg);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            padding: 16px 22px; border-radius: var(--border-radius); font-weight: 600; font-size: 1rem;
+            display: flex; align-items: center; gap: 16px; border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: var(--transition);
         }
+        .btn:hover { background: var(--glass-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(244,114,182,0.15); border-color: #fff; }
+        .btn:active { transform: scale(0.98); }
 
-        .btn:hover {
-            background: var(--glass-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.15);
-            border-color: #fff;
-        }
+        .icon-box { font-size: 1.4rem; display: flex; align-items: center; justify-content: center; width: 32px; }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
+        h2.section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-secondary); margin-bottom: -16px; padding-left: 8px; font-weight: 600; }
 
-        .icon-box {
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-        }
+        .payment-cards { display: flex; flex-direction: column; gap: 12px; }
+        .compact-card { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 20px; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .compact-card:hover { background: var(--glass-hover); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(244,114,182,0.15); }
+        .card-details { display: flex; flex-direction: column; gap: 8px; }
+        .card-title { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-secondary); text-transform: uppercase; }
+        .card-number { font-family: 'Courier New', Courier, monospace; font-size: 1.3rem; font-weight: 700; letter-spacing: 1.5px; color: var(--text-primary); }
 
-        h2.section-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            margin-bottom: -16px;
-            padding-left: 8px;
-            font-weight: 600;
-        }
+        .copy-btn-compact { background: #fff; color: var(--text-primary); border: 1px solid #e2e8f0; padding: 10px 18px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: var(--transition); font-family: inherit; white-space: nowrap; }
+        .copy-btn-compact:hover { background: #fdf2f8; color: var(--accent-color); border-color: var(--accent-color); }
+        .copy-btn-compact:active { transform: scale(0.92); }
 
-        .payment-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .compact-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-        }
-
-        .compact-card:hover {
-            background: var(--glass-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.15);
-        }
-
-        .card-details {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .card-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        .card-number {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: var(--text-primary);
-        }
-
-        .copy-btn-compact {
-            background: #fff;
-            color: var(--text-primary);
-            border: 1px solid #e2e8f0;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            white-space: nowrap;
-        }
-
-        .copy-btn-compact:hover {
-            background: #fdf2f8;
-            color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-
-        .copy-btn-compact:active {
-            transform: scale(0.92);
-        }
-
-        /* ── Прайс-лист кнопка ── */
-        .price-btn {
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--border-radius);
-            padding: 18px 22px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .price-btn:hover {
-            background: var(--glass-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.18);
-            border-color: rgba(244, 114, 182, 0.3);
-        }
-
-        .price-btn:active {
-            transform: scale(0.98);
-        }
-
-        .price-icon-box {
-            width: 46px;
-            height: 46px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
-            border: 1px solid rgba(244, 114, 182, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .price-btn-text {
-            flex: 1;
-        }
-
-        .price-btn-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 3px;
-        }
-
-        .price-btn-sub {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .price-arrow {
-            color: var(--accent-color);
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
+        /* Прайс-лист */
+        .price-btn { text-decoration: none; display: flex; align-items: center; gap: 16px; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 18px 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: var(--transition); cursor: pointer; }
+        .price-btn:hover { background: var(--glass-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(244,114,182,0.18); border-color: rgba(244,114,182,0.3); }
+        .price-btn:active { transform: scale(0.98); }
+        .price-icon-box { width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg,#fdf2f8 0%,#fce7f3 100%); border: 1px solid rgba(244,114,182,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .price-btn-text { flex: 1; }
+        .price-btn-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+        .price-btn-sub { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; }
+        .price-arrow { color: var(--accent-color); font-size: 1.1rem; flex-shrink: 0; }
 
         .color-tg { color: #38bdf8; }
         .color-phone { color: #10b981; }
 
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #fff;
-            color: var(--accent-color);
-            border: 1px solid rgba(244, 114, 182, 0.3);
-            padding: 14px 28px;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(244, 114, 182, 0.2);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            z-index: 1000;
-        }
+        /* Footer */
+        .footer-section { width: 100%; max-width: 420px; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 36px; }
+        .footer-divider { width: 75%; height: 1px; background: linear-gradient(to right, transparent, rgba(100,116,139,0.25), transparent); border: none; }
+        .footer-credit { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; text-align: center; line-height: 1.6; }
+        .footer-credit a { color: var(--accent-color); text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
+        .footer-credit a:hover { opacity: 0.75; }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #fff; color: var(--accent-color); border: 1px solid rgba(244,114,182,0.3); padding: 14px 28px; border-radius: 30px; font-weight: 600; box-shadow: 0 10px 25px rgba(244,114,182,0.2); transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275); opacity: 0; z-index: 1000; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 
@@ -386,7 +118,6 @@
         <div class="bg-shape shape-2"></div>
     </div>
 
-    <!-- Кнопка переключения языка -->
     <button class="lang-toggle" id="langBtn" onclick="toggleLang()">UZB</button>
 
     <div class="profile-container">
@@ -401,7 +132,6 @@
                 <span class="icon-box color-phone"><i class="fa-solid fa-phone"></i></span>
                 <span data-i18n="call">Позвонить мне</span>
             </a>
-
             <a href="https://t.me/Kottofeechka" class="btn" target="_blank" rel="noopener noreferrer">
                 <span class="icon-box color-tg"><i class="fa-brands fa-telegram"></i></span> Telegram
             </a>
@@ -417,7 +147,6 @@
                 </div>
                 <button class="copy-btn-compact" onclick="copyText('inn-rado', this)" data-i18n="copy">Copy</button>
             </div>
-
             <div class="compact-card">
                 <div class="card-details">
                     <span class="card-title" data-i18n="inn-merak-label">ИНН Merak trade</span>
@@ -427,7 +156,6 @@
             </div>
         </div>
 
-        <!-- ── Прайс-лист ── -->
         <h2 class="section-title" data-i18n="price-section">Прайс-лист</h2>
 
         <a href="price.html" target="_blank" class="price-btn">
@@ -445,13 +173,22 @@
             </div>
             <span class="price-arrow"><i class="fa-solid fa-chevron-right"></i></span>
         </a>
+    </div>
 
+    <!-- Footer -->
+    <div class="footer-section">
+        <hr class="footer-divider">
+        <p class="footer-credit">
+            <span data-i18n="made-by">Сделано при поддержке</span><br>
+            <a href="https://onetouchit-2026.github.io/Catalog/" target="_blank" rel="noopener noreferrer">
+                <span data-i18n="catalog-link">Официальный каталог</span>
+            </a>
+        </p>
     </div>
 
     <div id="toast" class="toast"></div>
 
     <script>
-        /* ───── Переводы ───── */
         const i18n = {
             ru: {
                 'call':           'Позвонить мне',
@@ -464,20 +201,24 @@
                 'price-title':    'Открыть прайс',
                 'price-sub':      '170 позиций · актуальные цены',
                 'job-title':      'Торговый представитель<br>Rado max trade &amp; Merak trade',
-                'page-title':     'Холкина Екатерина | Контакты'
+                'page-title':     'Холкина Екатерина | Контакты',
+                'made-by':        'Сделано при поддержке',
+                'catalog-link':   'Официальный каталог'
             },
             uz: {
-                'call':           'Menga qo\'ng\'iroq qiling',
+                'call':           "Menga qo'ng'iroq qiling",
                 'inn-section':    'INN rekvizitlari',
                 'inn-rado-label': 'INN Rado max trade',
                 'inn-merak-label':'INN Merak trade',
                 'copy':           'Nusxa',
                 'copied':         'INN nusxalandi!',
-                'price-section':  'Narxlar ro\'yxati',
+                'price-section':  "Narxlar ro'yxati",
                 'price-title':    'Narxlarni ochish',
                 'price-sub':      '170 ta mahsulot · joriy narxlar',
                 'job-title':      'Savdo vakili<br>Rado max trade &amp; Merak trade',
-                'page-title':     'Xolkina Yekaterina | Kontaktlar'
+                'page-title':     'Xolkina Yekaterina | Kontaktlar',
+                'made-by':        "Qo'llab-quvvatlagan holda yaratilgan",
+                'catalog-link':   'Rasmiy katalog'
             }
         };
 
@@ -499,33 +240,26 @@
             applyLang(currentLang);
         }
 
-        /* ───── Копирование ───── */
         function copyText(elementId, btnElement) {
             const textToCopy = document.getElementById(elementId).innerText.replace(/\s+/g, '');
             const t = i18n[currentLang];
 
-            const copyToClipboardFallback = (text) => {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try { document.execCommand('copy'); } catch (err) {}
-                document.body.removeChild(textArea);
+            const fallback = (text) => {
+                const ta = document.createElement("textarea");
+                ta.value = text; ta.style.position = "fixed";
+                document.body.appendChild(ta); ta.focus(); ta.select();
+                try { document.execCommand('copy'); } catch(e){}
+                document.body.removeChild(ta);
             };
 
             const handleSuccess = () => {
-                const originalText = btnElement.innerText;
                 btnElement.innerText = '✓';
                 btnElement.style.background = '#fdf2f8';
                 btnElement.style.color = '#f472b6';
                 btnElement.style.borderColor = '#f472b6';
-
                 const toast = document.getElementById('toast');
                 toast.innerText = t['copied'];
                 toast.classList.add('show');
-
                 setTimeout(() => {
                     btnElement.innerText = t['copy'];
                     btnElement.style.background = '';
@@ -536,18 +270,11 @@
             };
 
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(handleSuccess)
-                    .catch(() => { copyToClipboardFallback(textToCopy); handleSuccess(); });
-            } else {
-                copyToClipboardFallback(textToCopy);
-                handleSuccess();
-            }
+                navigator.clipboard.writeText(textToCopy).then(handleSuccess).catch(() => { fallback(textToCopy); handleSuccess(); });
+            } else { fallback(textToCopy); handleSuccess(); }
         }
 
-        /* Инициализация */
         applyLang('ru');
     </script>
 </body>
-
 </html>
